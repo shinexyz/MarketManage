@@ -1,0 +1,15 @@
+{
+  "name": "managementsystem",
+  "version": "1.0.0",
+  "description": "这是一个超市销售管理系统",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  }
+}
