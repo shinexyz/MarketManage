@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="panel admin-panel">
-  <div class="panel-head"><strong><span ></span> 添加管理员</strong></div>
+  <div class="panel-head"><strong><span ></span> 修改管理员信息</strong></div>
   <div class="body-content">
     <form method="post" class="form-x" action="">
       <div class="form-group">
@@ -21,7 +21,7 @@
           <label for="sitename">管理员帐号：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" name="username" id="username" size="50" placeholder="请输入账号" data-validate="required:请输入账号,length#>=4:账号不能小于4位,length#<=8:账户不能大于8位"/>
+          <input type="text" class="input w50" name="username" id="username" value="<%= data.username%>"readonly size="50" placeholder="请输入账号" data-validate="required:请输入账号,length#>=4:账号不能小于4位,length#<=8:账户不能大于8位"/>
         </div>
       </div>     
 
@@ -30,7 +30,7 @@
           <label for="sitename">电话号码：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" id="mtel" name="tel" size="50" placeholder="请输入电话号码" data-validate="required:请输入电话号码,length#==11:请输入11位手机号" />       
+          <input type="text" class="input w50" id="mtel" name="tel" size="50" value="<%= data.tel%>" placeholder="请输入电话号码" data-validate="required:请输入电话号码,length#==11:请输入11位手机号" />       
         </div>
       </div>   
 
@@ -39,7 +39,7 @@
           <label for="sitename">输入密码：</label>
         </div>
         <div class="field">
-          <input type="password" class="input w50" id="mpass" name="password" size="50" placeholder="请输入密码" data-validate="required:请输入密码,length#>=6:密码长度不能小于8位,length#<=12:密码长度不能大于12位" />       
+          <input type="password" class="input w50" id="mpass" name="password" size="50" placeholder="请输入密码" data-validate="length#>=6:密码长度不能小于8位,length#<=12:密码长度不能大于12位" />       
         </div>
       </div>   
 
@@ -48,7 +48,7 @@
           <label for="sitename">确认密码：</label>
         </div>
         <div class="field">
-          <input type="password" class="input w50" name="repassword" size="50" placeholder="请再次输入密码" data-validate="required:请再次输入密码,repeat#password:两次输入的密码不一致" />          
+          <input type="password" class="input w50" name="repassword" size="50" placeholder="请再次输入密码" data-validate="repeat#password:两次输入的密码不一致" />          
         </div>
       </div>
 
@@ -76,4 +76,5 @@
     </form>
   </div>
 </div>
-</body></html>
+</body>
+</html>
