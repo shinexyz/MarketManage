@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/public/admin/css/pintuer.css">
+    <link rel="stylesheet" href="/public/admin/css/admin.css">
+    <link rel="stylesheet" href="/public/admin/css/amaze_admin.css">
+    <link rel="stylesheet" href="/public/admin/css/amazeui.min.css">
+    <script src="/public/admin/js/jquery.js"></script>
+    <script src="/public/admin/js/pintuer.js"></script>
+    
+  <body>
+    <form class="am-form am-form-horizontal" method="post" action="">
+      <h2 align="center">采购退货信息登记</h2>
+      <div class="am-form-group">
+        <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">商品名称</label>
+        <div class="am-u-sm-10">
+          <input type="text" id="doc-ipt-pwd-2" name="name" placeholder="输入商品名称">
+        </div>
+      </div>
+      
+      <div class="am-form-group">
+        <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">进价(元)</label>
+        <div class="am-u-sm-10">
+          <input type="text" id="doc-ipt-pwd-2" name="price" placeholder="输入商品进价">
+        </div>
+      </div>
+
+        <div class="am-form-group">
+        <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">退货价(元)</label>
+        <div class="am-u-sm-10">
+          <input type="text" id="doc-ipt-pwd-2" name="rprice" placeholder="输入退货价">
+        </div>
+      </div>
+
+         <div class="am-form-group">
+        <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">存放仓库</label>
+        <div class="am-u-sm-10">
+          <select name="depot" >
+            <option value="001">主仓库</option>
+            <option value="002">次仓库</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="am-form-group">
+        <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">退货原因</label>
+        <div class="am-u-sm-10">
+          <select name="rtype" >
+            <option value="001">破损</option>
+            <option value="002">质量问题</option>
+            <option value="003">其他</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="am-form-group">
+        <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">退货件数</label>
+        <div class="am-u-sm-10">
+          <input type="text" id="doc-ipt-pwd-2" name="num" placeholder="输入退货件数">
+        </div>
+      </div>
+      
+      
+      <div class="am-form-group">
+        <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">供货商</label>
+        <div class="am-u-sm-10">
+          <select name ="supply">
+            <option value="001">张三</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="am-form-group">
+        <div class="am-u-sm-10 am-u-sm-offset-2">
+          <button type="submit" class="am-btn am-btn-secondary am-radius">提交</button>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
