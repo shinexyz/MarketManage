@@ -106,7 +106,7 @@ router.post("/add",function(req,res,next){
 								[username,tel,password,permission],function(err,data){
 									if(err){
 										
-										return "插入出错";
+										return "";
 									}else{
 										//判断是否成功
 										if (data.affectedRows==1) {
@@ -167,4 +167,5 @@ router.get('/ajax_del',function(req,res,next){
 
 });
 
+//进货管理
 module.exports=router;
