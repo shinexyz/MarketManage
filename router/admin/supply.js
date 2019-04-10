@@ -72,4 +72,60 @@ router.post('/add',function(req,res,next){
 		res.send("<script>alert('请输入供货商名称');history.go(-1)</script>");
 	}
 });
+//供应商修改
+router.get('/edit',function(req,res,next){
+	let id = req.query.id;
+	//查询ID对应的数据
+	mysql.query("select * from supply where id = "+id,function(err,data){
+		if (err) {
+			console.log(err);
+			return "";
+
+		}else{
+			 //加载修改页面
+			 res.render("admin/supplyManage/supplyEdit.html",{data:data[0]});
+		}
+	}); 
+});
+//修改
+router.post('/edit',function(req,res,next){
+	let {id,name,tel,adress} = req.body;
+	//修改数据库数据
+	let sql=`update supply set tel = '${tel}',adress = '${adress}' where id = ${id}`;
+	mysql.query(sql,function(err,data){
+		if (err) {
+			console.log(err);
+			return "";
+		}else{
+			if (data.affectedRows==1) {
+				res.send("<script>alert('修改成功');history.go(-2)</script>");
+
+			}else{
+				res.send("<script>alert('修改失败');history.go(-1)</script>");
+
+			}
+		}
+	})
+});
+//删除数据
+router.get('/ajax_del',function(req,res,next){
+	//接受地址栏数据
+	let id = req.query.id;
+	//删除数据
+	mysql.query(`delete from supply where id = ${id}`,function(err,data){
+		if (err) {
+			return "";
+		}else{
+			//判断是否执行成功
+			if (data.affectedRows==1) {
+
+				res.send("1");
+			}else{
+				res.send("0");
+
+			}
+		}
+	});
+
+});
 module.exports = router;
