@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="panel admin-panel">
-  <div class="panel-head"><strong><span ></span> 添加供货商</strong></div>
+  <div class="panel-head"><strong><span ></span> 修改供货商信息</strong></div>
   <div class="body-content">
     <form method="post" class="form-x" action="">
       <div class="form-group">
@@ -21,7 +21,8 @@
           <label for="sitename">供货商名称：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" name="name" id="name" size="50" placeholder="请输入账号" data-validate="required:请输入供货商名称"/>
+          <input type="text" class="input w50" name="name" id="name" size="50" placeholder="请输入账号" value="<%= data.name%>"readonly/>
+          <input type="hidden" name="id" value="<%= data.id%>">
         </div>
       </div>     
 
@@ -30,7 +31,7 @@
           <label for="sitename">电话号码：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" id="tel" name="tel" size="50" placeholder="请输入电话号码" data-validate="required:请输入电话号码" />       
+          <input type="text" class="input w50" id="tel" name="tel" size="50" value="<%= data.tel%>" placeholder="请输入电话号码" data-validate="required:请输入电话号码" />       
         </div>
       </div>   
 
@@ -39,23 +40,9 @@
           <label for="sitename">联系地址：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50"  name="adress" size="50" placeholder="请输入联系地址"  />       
+          <input type="text" class="input w50" value="<%= data.adress%>" name="adress" size="50" placeholder="请输入联系地址"  />       
         </div>
       </div>   
-      <div class="form-group">
-        <div class="label">
-          <label for="sitename">供应类型：</label>
-        </div>
-        <div class="field">
-          <select name="stype">
-            <option value="食品">食品</option>
-            <option value="厨具餐具">厨具餐具</option>
-            <option value="家用电器">家用电器</option>
-            <option value="文具饰品">文具饰品</option>
-            <option value="生活用品">生活用品</option>
-           </select>       
-        </div>
-      </div>
       <div class="form-group">
         <div class="label">
           <label></label>

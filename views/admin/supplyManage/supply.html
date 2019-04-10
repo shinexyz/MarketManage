@@ -49,9 +49,9 @@
           <td ><%= item.adress%></td>
           <td>
           	<div class="button-group">
-           <a class="button border-main" ><span class="icon-edit"></span> 修改</a> 
-           <a class="button border-red" href="javascript:void(0)" onclick=" "><span class="icon-trash-o"></span> 删除</a> 
-       		</div>
+           <a class="button border-main" href="supply/edit?id=<%= item.id%>"><span class="icon-edit"></span> 修改</a> 
+           <a class="button border-red" href="javascript:void(0)" onclick=" del(this,<%= item.id %>)"><span class="icon-trash-o"></span> 删除</a> 
+          </div>
    		</td>
         </tr>
          <% }) %>
@@ -67,17 +67,18 @@
 -->
     </table>
   </div>
-  <!--
+  
 <script type="text/javascript">
 	function del(obj,id){
 		//alert(id);
 		//确认框
 		if (confirm("您确定要删除吗")) {
 			//发送ajax请求
-			$.get("/admin/admin/ajax_del",{id:id},function(data){
+			$.get("/admin/supply/ajax_del",{id:id},function(data){
 				//判断是否删除成功
         if (data==1) {
           //删除成功，将此条数据移除
+          alert("删除成功");
           $(obj).parents("tr").remove();
         }else{
           alert("删除失败");
@@ -88,6 +89,5 @@
 
 	}
 </script>
---->
 </body>
 </html>
