@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="/public/admin/css/pintuer.css">
+<link rel="stylesheet" href="/public/admin/css/admin.css">
+<script src="/public/admin/js/jquery.js"></script>
+<script src="/public/admin/js/pintuer.js"></script>
+</head>
+<body>
+
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+        <li> <a class="button border-main icon-plus-square-o" href="admin/add"> 添加内容</a> </li>
+        <li>搜索：</li>
+
+        <li>
+        	<form method="get" action="">
+          <input type="text"  value= "<%= search%>" placeholder="请输入搜索关键字" name="search" class="input" style="width:250px; line-height:17px;display:inline-block" />
+          <button class="button border-main icon-search">搜索</button>
+          </form>
+      </li>
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="100" style="text-align:left; padding-left:20px;">ID</th>
+        <th width="10%">用户名</th>
+        <th>电话号码</th>
+        <th>权限类型</th>
+        <th width="310">操作</th>
+      </tr>
+      <!---ejs模板引擎-->
+      	<% data.forEach(item=>{ %>
+        <tr>
+          <td style="text-align:left; padding-left:20px;"><%= item.id %></td>
+          <td><%= item.username %></td>
+          <td width="10%"><%= item.tel %></td>
+          <td><font color="#00CC99"><%= item.permission %></font></td>
+          <td>
+          	<div class="button-group">
+           <a class="button border-main" href="admin/edit?id=<%= item.id%>"><span class="icon-edit"></span> 修改</a> 
+           <a class="button border-red" href="javascript:void(0)" onclick=" del(this,<%= item.id %>)"><span class="icon-trash-o"></span> 删除</a> 
+       		</div>
+   		</td>
+        </tr>
+    		<% }) %>
+   		<!---
+      <tr>
+        <td style="text-align:left; padding:19px 0;padding-left:20px;"><input type="checkbox" id="checkall"/>
+          全选 </td>
+        <td colspan="7" style="text-align:left;padding-left:20px;"><a href="javascript:void(0)" class="button border-red icon-trash-o" style="padding:5px 15px;" onclick="DelSelect()"> 删除</a> 
+      </tr>
+      <tr>
+        <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
+      </tr>
+-->
+    </table>
+  </div>
+<script type="text/javascript">
+	function del(obj,id){
+		//alert(id);
+		//确认框
+		if (confirm("您确定要删除吗")) {
+			//发送ajax请求
+			$.get("/admin/admin/ajax_del",{id:id},function(data){
+				//判断是否删除成功
+        if (data==1) {
+          //删除成功，将此条数据移除
+          $(obj).parents("tr").remove();
+        }else{
+          alert("删除失败");
+        }
+			});
+			
+		}
+
+	}
+</script>
+</body>
+</html>

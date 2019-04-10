@@ -1,0 +1,102 @@
+
+ <!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="/public/admin/css/pintuer.css">
+<link rel="stylesheet" href="/public/admin/css/admin.css">
+<script src="/public/admin/js/jquery.js"></script>
+<script src="/public/admin/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span ></span> 添加商品采购信息</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="">
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">商品名称：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="name" id="name" size="50" placeholder="请输入商品名称" data-validate="required:请输入商品名称"/>
+        </div>
+      </div>     
+
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">进价(元)：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50"  name="price" size="50" placeholder="请输入进价" data-validate="required:请输入进价" />       
+        </div>
+      </div>   
+
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">商品类型：</label>
+        </div>
+        <div class="field">
+          <select name="gtype">
+            <option value="001">食品</option>
+            <option value="002">厨具餐具</option>
+            <option value="003">家用电器</option>
+            <option value="004">文具饰品</option>
+            <option value="005">生活用品</option>
+           </select>       
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">存放仓库：</label>
+        </div>
+        <div class="field">
+          <select name="depot">
+            <option value="主仓库">主仓库</option>
+            <option value="此仓库">次仓库</option>
+           </select>       
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">采购件数：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50"  name="num" size="50" placeholder="请输入采购件数"/>       
+        </div>
+      </div>  
+
+      <div class="form-group">
+        <div class="label">
+          <label for="sitename">供货商：</label>
+        </div>
+        <div class="field">
+          <select name="supply" id="supply">
+
+            <% data.forEach(item=>{ %>
+            <option value="<%= item.name%>"><%= item.name%></option>
+
+            <% }) %>
+
+           </select>       
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>   
+        </div>
+      </div>      
+    </form>
+  </div>
+</div>
+</body>
+</html>
