@@ -23,69 +23,86 @@
         </div>
         <div class="field">
           <input type="text" class="input w50" name="name" id="name" size="50" placeholder="请输入商品名称" data-validate="required:请输入商品名称"/>
-        </div>
-      </div>     
 
-      <div class="form-group">
-        <div class="label">
-          <label for="sitename">进价(元)：</label>
+          <label for="sitename" style="padding-left: 20px;" class="label">进价(元):</label>
+          <input type="text" class="input w50"  name="price" size="50" placeholder="请输入进价" data-validate="required:请输入进价" />
         </div>
-        <div class="field">
-          <input type="text" class="input w50"  name="price" size="50" placeholder="请输入进价" data-validate="required:请输入进价" />       
-        </div>
-      </div>   
-
-      <div class="form-group">
-        <div class="label">
-          <label for="sitename">商品类型：</label>
-        </div>
-        <div class="field">
-          <select name="gtype">
-            <option value="001">食品</option>
-            <option value="002">厨具餐具</option>
-            <option value="003">家用电器</option>
-            <option value="004">文具饰品</option>
-            <option value="005">生活用品</option>
-           </select>       
-        </div>
-      </div>
-
-      <div class="form-group">
-        <div class="label">
-          <label for="sitename">存放仓库：</label>
-        </div>
-        <div class="field">
-          <select name="depot">
-            <option value="主仓库">主仓库</option>
-            <option value="此仓库">次仓库</option>
-           </select>       
-        </div>
-      </div>
+      </div> 
 
       <div class="form-group">
         <div class="label">
           <label for="sitename">采购件数：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50"  name="num" size="50" placeholder="请输入采购件数"/>       
+           <input type="text" class="input w50"  name="num" size="50" placeholder="请输入采购件数，只能是数字" oninput = "value=value.replace(/[^\d]/g,'')"/>   
+           <label for="sitename" style="padding-left: 20px;" class="label">规格:</label>
+           <input type="text" class="input w50"  name="gsize" size="50" placeholder="请输入商品规格" data-validate="required:请输入商品规格" />  
         </div>
+      </div>   
+
+         <div class="form-group">
+        <div class="label">
+          <label for="sitename">单位:：</label>
+        </div>
+        <div class="field">
+          <select name="unit" class="input w50">
+            <option value="箱">箱</option>
+            <option value="斤">斤</option>
+            <option value="瓶">瓶</option>
+            <option value="袋">袋</option>
+            <option value="盒">盒</option>
+            <option value="个">个</option>
+          </select>   
+
+
+          <label for="sitename" style="padding-left: 20px;" class="label">商品类型:</label>  
+          <select name="gtype" width="200" class="input w50">
+            <option value="食品">食品</option>
+            <option value="厨具餐具">厨具餐具</option>
+            <option value="家用电器">家用电器</option>
+            <option value="文具饰品">文具饰品</option>
+            <option value="生活用品">生活用品</option>
+           </select>   
+        </div>
+
+        <!-- <div class="label">
+          <label for="sitename">单位：</label>
+        </div>
+        <div class="field" width="500">
+          <select name="unit" >
+            <option value="箱">箱</option>
+            <option value="斤">斤</option>
+            <option value="瓶">瓶</option>
+            <option value="袋">袋</option>
+            <option value="盒">盒</option>
+          </select>      
+        </div> -->
+
       </div>  
 
       <div class="form-group">
         <div class="label">
-          <label for="sitename">供货商：</label>
+          <label for="sitename">存放仓库：</label>
         </div>
         <div class="field">
-          <select name="supply" id="supply">
+          <select name="depot" class="input w50" >
+            <option value="主仓库">主仓库</option>
+            <option value="次仓库">次仓库</option>
+           </select> 
+
+           <label for="sitename" style="padding-left: 20px;" class="label" >供货商：</label>
+           <select name="supply" id="supply" class="input w50">
 
             <% data.forEach(item=>{ %>
             <option value="<%= item.name%>"><%= item.name%></option>
 
             <% }) %>
 
-           </select>       
+           </select>  
+
         </div>
       </div>
+    
 
       <div class="form-group">
         <div class="label">

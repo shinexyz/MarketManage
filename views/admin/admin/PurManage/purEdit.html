@@ -17,60 +17,47 @@
   <div class="panel-head"><strong><span ></span> 修改商品采购信息</strong></div>
   <div class="body-content">
     <form method="post" class="form-x" action="">
+
       <div class="form-group">
         <div class="label">
-          <label for="sitename">商品名称：</label>
+          <label for="sitename">商品编号：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50"  name="name" id="name" size="50" value="<%= data.name%>" readonly/>
+          <input type="text" class="input w50"  name="id" id="id" size="50" value="<%= data.identy%>" readonly/>
           <input type="hidden" name="id" value="<%= data.id%>">
+          <input type="hidden" name="depot" value="<%= data.depot%>">
+          <input type="hidden" name="num" value="<%= data.num%>">
+          <label for="sitename" style="padding-left: 20px;" class="label">商品名称:</label>
+          <input type="text" class="input w50" name="name" id="name" size="50" value="<%= data.name%>" readonly />
         </div>
-      </div>     
+      </div> 
+
+ 
 
       <div class="form-group">
         <div class="label">
           <label for="sitename">进价(元)：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" value="<%= data.price%>" name="price" size="50" />       
+          <input type="text" class="input w50" value="<%= data.price%>" name="price" size="50" />      
+
+          <label for="sitename" style="padding-left: 20px;" class="label">采购件数:</label>
+          <input type="text" class="input w50" name="enum" id="enum" size="50" value="<%= data.num%>" placeholder="请输入采购件数，只能是数字" oninput = "value=value.replace(/[^\d]/g,'')" /> 
         </div>
       </div>   
 
-      <!-- <div class="form-group">
-        <div class="label">
-          <label for="sitename">商品类型：</label>
-        </div>
-        <div class="field">
-          <select name="gtype">
-            <option value="001">食品</option>
-            <option value="002">厨具餐具</option>
-            <option value="003">家用电器</option>
-            <option value="004">文具饰品</option>
-            <option value="005">生活用品</option>
-           </select>       
-        </div>
-      </div>
- -->
-      <div class="form-group">
-        <div class="label">
-          <label for="sitename">存放仓库：</label>
-        </div>
-        <div class="field">
-          <select name="depot" id="depot">
-            <option value="主仓库">主仓库</option>
-            <option value="次仓库">次仓库</option>
-           </select>       
-        </div>
-      </div>
 
-      <div class="form-group">
+       <div class="form-group">
         <div class="label">
-          <label for="sitename">采购件数：</label>
+          <label for="sitename">规格：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50"  name="num" size="50" value="<%= data.num%>" />       
-        </div>
-      </div>  
+           <input type="text" class="input w50"  name="gsize" size="50" value="<%= data.gsize%>" placeholder="请输入商品规格" data-validate="required:请输入商品规格" />
+
+           </select> 
+         </div>
+      </div>   
+    
 
       <div class="form-group">
         <div class="label">
@@ -83,8 +70,5 @@
     </form>
   </div>
 </div>
-<script type="text/javascript">
-  $("#depot").val("<%= data.depot%>");
-</script>
 </body>
 </html>
