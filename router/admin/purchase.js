@@ -31,7 +31,7 @@ router.get('/',function(req,res,next){
 				}else{
 						//遍历data
 						data.forEach(item=>{
-						item.time = moment(item.time*1000).format("YYYY-MM-DD mm:ss");
+						item.time = moment(item.time*1000).format("YYYY-MM-DD h:mm a");
 							});
 						res.render("admin/purManage/purchaseManage.html",
 									{
@@ -61,57 +61,97 @@ router.get('/add',function(req,res,next){
 	});
 	
 });
+//库存表添加数据
+function insertStorage(name,depot,type,num){
 
-//采购信息的添加功能
-router.post('/add',function(req,res,next){
+	mysql.query("insert into storage(name,depot,type,num) values(?,?,?,?)",[name,depot,type,num],function(err,data){
+		if (err) {
+			console.log(err);
+			return "";
+		}
+		else{
 
-	//let time = Math.round((new Date().getTime())/1000) ;
-	//日期格式转换为年月日
-	//let time_convert = moment(time*1000).format("YYYY-MM-DD");
-	//判空
-	let {identy,name,price,gtype,depot,num,supply,unit,gsize} = req.body;
-	//let p = Math.round(parseFloat(price)*100)/100;
-	let total = price * num;
-	//console.log(p);
-	if (name) {
-		if (price) {
-			if (num) {
-				//插入数据
-				let time = Math.round((new Date().getTime())/1000) ;
-				mysql.query("insert into purRecord(identy,name,price,type,depot,num,supply,time,unit,tot,gsize) values(?,?,?,?,?,?,?,?,?,?,?)",
-					[identy,name,price,gtype,depot,num,supply,time,unit,total,gsize],function(err,data){
-						if (err) {
-							console.log(err);
-							return "";
-						}else{
-							//判断是否成功
-							if (data.affectedRows==1) {
-								//res.send("<script>alert('添加成功');location.href='admin/admin/add.html'</script>");
-								res.send("<script>alert('添加成功');history.go(-2)</script>");
-							}else{
-
-									res.send("<script>alert('添加失败');history.go(-1)</script>");
-								}
-						}
-
-					});
-
+			if (data.affectedRows==1) {
+				return 1;
 			}else{
-				
-				res.send("<script>alert('请输入采购数量');history.go(-1)</script>");
+				return 0;
 
 			}
 
-		}else{
-
-			res.send("<script>alert('请输入进价');history.go(-1)</script>");
 		}
 
-	}else{
+	});
 
-		res.send("<script>alert('请输入商品名称');history.go(-1)</script>");
-	}
+}
+//库存表修改
+function updateStorage(name,depot,num){
+	console.log(num);
+	let sql=`update storage set num = ${num} where name = '${name}' and depot = '${depot}'`;
+	mysql.query(sql,function(err,data){
+		if (err) {
+			console.log(err);
+			return "";
+		}
+		else{
 
+			if (data.affectedRows==1) {
+				return 1;
+			}else{
+				return 0;
+
+			}
+
+		}
+	});
+}
+//采购信息的添加功能
+router.post('/add',function(req,res,next){
+	let {name,price,gtype,depot,num,supply,unit,gsize} = req.body;
+ 	let total = price * num;
+ 	let result=0;
+ 	//库存中是否有此商品的对应数据
+ 	let sql = `select * from storage where name ='${name}' and depot = '${depot}'`;
+ 	mysql.query(sql,function(err,data){
+ 		if (err) {
+ 			console.log(err);
+ 			return "";
+ 		}else{
+ 			//不存在，添加数据
+ 			if (data.length==0) {
+
+ 				 result = insertStorage(name,depot,gtype,num);
+ 			}else{
+
+ 				//存在,更新库存数
+ 				let n = data[0].num + Number(num);
+ 				result = updateStorage(name,depot,n);
+ 			}
+ 		}
+
+ 	});
+
+ 	//采购单据信息添加
+ 	let time = Math.round((new Date().getTime())/1000) ;
+	mysql.query("insert into purRecord(name,price,type,depot,num,supply,time,unit,tot,gsize)values(?,?,?,?,?,?,?,?,?,?)",[name,price,gtype,depot,num,supply,time,unit,total,gsize],
+		function(err,data){
+			if (err) {
+				console.log(err);
+				return "";
+			}else{
+
+				//判断是否成功
+				if (data.affectedRows==1) {
+
+					//res.send("<script>alert('添加成功');location.href='admin/admin/add.html'</script>");
+					res.send("<script>alert('添加成功');history.go(-2)</script>");
+				}else{
+
+					res.send("<script>alert('添加失败');history.go(-1)</script>");
+					}
+			}
+
+	});
+ 	
 });
 
 //采购信息修改
@@ -131,34 +171,48 @@ router.get('/edit',function(req,res,next){
 	
 });
 //采购信息修改功能
-router.post('/edit',function(req,res,next){
-	let {id,name,price,gsize,num} = req.body;
-	//修改的时间
-	let time  = Math.round((new Date().getTime())/1000) ;
-	let total = price * num;
-	let sql=`update purrecord set price = ${price},gsize = '${gsize}',num = ${num},time = ${time},tot = ${total} where id = ${id}`;
-	mysql.query(sql,function(err,data){
-		if (err) {
-			console.log(err);
-			return "";
-		}else{
-			//判断是否执行成功
-			if (data.affectedRows==1) {
-				res.send("<script>alert('修改成功');history.go(-2)</script>");
-				console.log(sql);
-			}else{
-				res.send("<script>alert('修改失败');history.go(-1)</script>");
+// router.post('/edit',function(req,res,next){
+// 	let {id,name,price,gsize,num,depot,enum} = req.body;
+// 	//修改的时间
+// 	let time  = Math.round((new Date().getTime())/1000) ;
+// 	let total = price * num;
+// 	let sql=`update purrecord set price = ${price},gsize = '${gsize}',num = ${enum},time = ${time},tot = ${total} where id = ${id}`;
+// 	mysql.query(sql,function(err,data){
+// 		if (err) {
+// 			console.log(err);
+// 			return "";
+// 		}
+// 		else{
+// 			//判断是否执行成功
+// 			if (data.affectedRows==1) 
+// 			{
+// 				res.send("<script>alert('修改成功');history.go(-2)</script>");
+// 				console.log(sql);
+// 			}else{
+// 				res.send("<script>alert('修改失败');history.go(-1)</script>");
 
-			}
-		}
-	});
+// 			}
+// 		}
+// 	});
+// 	//更新库存信息
+// 	//查询商品的num
+// 	mysql.query("select * from storage where name =? and depot =?",[name,depot],function(err,data){
+
+// 		if (err) {
+// 			return "";
+// 		}else{
+
+// 			let gap = num-enum;
+// 			let result = updateStorage(name,depot,data.num+gap);
+// 		}
+// 	});
 	
 
-});
+// });
 //采购数据删除
 router.get('/ajax_del',function(req,res,next){
 	//接受地址栏数据
-	let id = req.query.id;
+	let {id,name,depot,num}= req.query.id;
 	//删除数据
 	mysql.query(`delete from purrecord where id = ${id}`,function(err,data){
 		if (err) {
@@ -174,7 +228,16 @@ router.get('/ajax_del',function(req,res,next){
 			}
 		}
 	});
+	//删除库存中的库存量
+	mysql.query("select * from storage where name =? and depot =?",[name,depot],function(err,data){
 
+		if (err) {
+			return "";
+		}else{
+
+			let result = updateStorage(name,depot,data.num-num);
+		}
+	});
 });
 
 
